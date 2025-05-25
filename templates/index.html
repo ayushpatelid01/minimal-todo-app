@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="addtodo">
+  <div class="container">
+    <h2 class="mt-4">Add ToDo</h2>
+  </div>
+  <form class="container mb-4 mt-2 mx-10" method="POST">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control bg-body-tertiary border border-secondary"" name="title" id="title">
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input type="text" class="form-control bg-body-tertiary border border-secondary"" name="description" id="description">
+    </div>
+    <button type="submit" class="btn btn-primary mt-4 border border-secondary"">Submit</button>
+  </form>
+</div>
+<div class="showtodo">
+  {% if alltodo|length == 0 %}
+  <div class="container p-3 bg-info text-dark rounded" role="alert">
+    <h2>No Items in ToDo.</h2>
+  </div>
+  {% else %}
+  <div class="container">
+    <h2>All ToDos</h2>
+  </div>
+  <table class="table container mx-10 my-1 table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">S. No.</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date and Time</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      {% for todo in alltodo %}
+      <tr>
+        <th scope="row">{{loop.index}}</th>
+        <td>{{todo.title}}</td>
+        <td>{{todo.description}}</td>
+        <td>{{todo.dateandtime}}</td>
+        <td>
+          <a href="/update/{{todo.sno}}" type="button" class="btn btn-outline-primary m-1 btn-sm">Update</button>
+          <a href="/delete/{{todo.sno}}" type="button" class="btn btn-outline-primary m-1 btn-sm">Delete</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+{% endblock body %}
